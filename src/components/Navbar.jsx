@@ -63,10 +63,18 @@ const Navbar = () => {
 
           <li>
             <Link
-              href="/signup"
+              href="/login"
               className="text-sm font-medium bg-cyan-500 hover:bg-cyan-600 text-white px-5 py-2.5 transition-colors duration-200 rounded-2xl"
             >
                 Login
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/signup"
+              className="text-sm font-medium bg-cyan-500 hover:bg-cyan-600 text-white px-5 py-2.5 transition-colors duration-200 rounded-2xl"
+            >
+                Signup
             </Link>
           </li>
         </ul>
