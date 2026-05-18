@@ -22,6 +22,7 @@ import {
 import { AdoptForm } from '@/components/AdoptForm';
 import { Button } from '@heroui/react';
 import { Editpet } from '@/components/EditModal';
+import { DeletePet } from '@/components/Delete';
 
 const PetDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -65,9 +66,26 @@ const PetDetailsPage = async ({ params }) => {
       {/* Main Card */}
       <section className="max-w-6xl mx-auto px-6 py-8">
 
-       <div className='flex justify-end space-x-3 mb-4'>
-        <Editpet pet={pet} />
-        <Button variant='outline'><FaTrash></FaTrash>  Delete</Button>
+       <div className='flex justify-between space-x-3 mb-4'>
+        <div>
+            <Button variant='secondary'>
+                  <Link
+                  href="/all-pets"
+                  className='flex gap-3'
+                  
+                >
+                  <FaArrowLeft className="text-xs" /> Back to All Pets
+                </Link>
+
+            </Button>
+           
+        </div>
+        <div className='flex gap-3'>
+            <Editpet pet={pet} />
+        <DeletePet pet={pet} />
+
+        </div>
+        
       </div>
 
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
@@ -168,13 +186,6 @@ const PetDetailsPage = async ({ params }) => {
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 mt-auto">
                 <AdoptForm petName={petName} />
-
-                <Link
-                  href="/all-pets"
-                  className="flex-1 flex items-center justify-center gap-2 text-sm font-semibold border border-gray-200 text-gray-600 hover:border-gray-400 hover:text-gray-900 px-6 py-3.5 rounded-2xl transition-all duration-200"
-                >
-                  <FaArrowLeft className="text-xs" /> Back to All Pets
-                </Link>
               </div>
             </div>
           </div>
