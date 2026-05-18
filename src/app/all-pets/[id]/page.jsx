@@ -16,8 +16,12 @@ import {
   FaShieldAlt,
   FaCheckCircle,
   FaVenusMars,
+  FaEdit,
+  FaTrash,
 } from 'react-icons/fa';
 import { AdoptForm } from '@/components/AdoptForm';
+import { Button } from '@heroui/react';
+import { Editpet } from '@/components/EditModal';
 
 const PetDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -56,19 +60,16 @@ const PetDetailsPage = async ({ params }) => {
   return (
     <main className="min-h-screen bg-gray-50">
 
-      {/* Breadcrumb */}
-      <div className="max-w-6xl mx-auto px-6 pt-8 pb-2">
-        <nav className="flex items-center gap-2 text-sm text-gray-400">
-          <Link href="/" className="hover:text-gray-700 transition-colors">Home</Link>
-          <span>/</span>
-          <Link href="/all-pets" className="hover:text-gray-700 transition-colors">All Pets</Link>
-          <span>/</span>
-          <span className="text-gray-700 font-medium">{petName}</span>
-        </nav>
-      </div>
+     
 
       {/* Main Card */}
       <section className="max-w-6xl mx-auto px-6 py-8">
+
+       <div className='flex justify-end space-x-3 mb-4'>
+        <Editpet pet={pet} />
+        <Button variant='outline'><FaTrash></FaTrash>  Delete</Button>
+      </div>
+
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2">
 
