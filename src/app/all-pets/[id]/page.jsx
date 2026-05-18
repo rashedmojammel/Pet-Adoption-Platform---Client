@@ -1,20 +1,226 @@
 import React from 'react';
+import Link from 'next/link';
+// import AdoptFormModal from '@/components/AdoptFormModal';
+import {
+  FaDog,
+  FaBirthdayCake,
+  FaDna,
+  FaMapMarkerAlt,
+  FaHome,
+  FaSyringe,
+  FaPhoneAlt,
+  FaLock,
+  FaChevronRight,
+  FaArrowLeft,
+  FaHeart,
+  FaShieldAlt,
+  FaCheckCircle,
+  FaVenusMars,
+} from 'react-icons/fa';
+import { AdoptForm } from '@/components/AdoptForm';
 
-const PetDetailsPage =async ({params}) => {
-    const { id } = await params;
-    console.log("Pet ID:", id);
+const PetDetailsPage = async ({ params }) => {
+  const { id } = await params;
 
-    const res = await fetch(`http://localhost:5000/pets/${id}`);
-    const pet = await res.json();
-    console.log("Pet Details:", pet);
-    
+  const res = await fetch(`http://localhost:5000/pets/${id}`);
+  const pet = await res.json();
 
-    return (
-        <div>
-            <h1>Pet Details</h1>
-            <p>This is the details page for a specific pet.</p> 
+  const {
+    petName,
+    species,
+    age,
+    breed,
+    gender,
+    location,
+    description,
+    imageUrl,
+    healthStatus,
+    vaccinationStatus,
+    adoptionFee,
+    ownerEmail,
+  } = pet;
+
+  const badges = [
+    { icon: FaCheckCircle, label: healthStatus || 'Healthy', color: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
+    { icon: FaSyringe, label: vaccinationStatus || 'Vaccinated', color: 'bg-cyan-100 text-cyan-700 border-cyan-200' },
+    { icon: FaVenusMars, label: gender || 'Unknown', color: 'bg-violet-100 text-violet-700 border-violet-200' },
+  ];
+
+  const stats = [
+    { icon: FaDog, label: 'Species', value: species, color: 'text-orange-400' },
+    { icon: FaBirthdayCake, label: 'Age', value: `${age} ${age === 1 ? 'year' : 'years'}`, color: 'text-pink-400' },
+    { icon: FaDna, label: 'Breed', value: breed, color: 'text-violet-400' },
+    { icon: FaMapMarkerAlt, label: 'Location', value: location, color: 'text-red-400' },
+  ];
+
+  return (
+    <main className="min-h-screen bg-gray-50">
+
+      {/* Breadcrumb */}
+      <div className="max-w-6xl mx-auto px-6 pt-8 pb-2">
+        <nav className="flex items-center gap-2 text-sm text-gray-400">
+          <Link href="/" className="hover:text-gray-700 transition-colors">Home</Link>
+          <span>/</span>
+          <Link href="/all-pets" className="hover:text-gray-700 transition-colors">All Pets</Link>
+          <span>/</span>
+          <span className="text-gray-700 font-medium">{petName}</span>
+        </nav>
+      </div>
+
+      {/* Main Card */}
+      <section className="max-w-6xl mx-auto px-6 py-8">
+        <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+
+            {/* ── Left: Image ── */}
+            <div className="relative">
+              <div className="sticky top-24">
+                <div className="aspect-[4/3] lg:aspect-auto lg:h-[560px] overflow-hidden">
+                  <img
+                    src={imageUrl}
+                    alt={petName}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                {/* Green glow overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+
+                {/* Adoption fee badge */}
+                {adoptionFee && (
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-2xl px-4 py-2 shadow-lg">
+                    <p className="text-xs text-gray-400 uppercase tracking-widest">Adoption Fee</p>
+                    <p className="text-xl font-bold text-cyan-600">${adoptionFee}</p>
+                  </div>
+                )}
+
+                {/* Pet name overlay */}
+                <div className="absolute bottom-6 left-6 text-white">
+                  <p className="text-xs tracking-[0.25em] uppercase text-green-300 mb-1">
+                    {species}
+                  </p>
+                  <h1 className="text-4xl font-bold drop-shadow-lg" style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}>
+                    {petName}
+                  </h1>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Right: Info ── */}
+            <div className="p-8 lg:p-10 flex flex-col gap-7">
+
+              {/* Status Badges */}
+              <div className="flex flex-wrap gap-2">
+                {badges.map(({ icon: Icon, label, color }) => (
+                  <span
+                    key={label}
+                    className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border ${color}`}
+                  >
+                    <Icon className="text-xs" />
+                    {label}
+                  </span>
+                ))}
+              </div>
+
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 gap-4">
+                {stats.map(({ icon: Icon, label, value, color }) => (
+                  <div
+                    key={label}
+                    className="bg-gray-50 rounded-2xl p-4 border border-gray-100 hover:border-cyan-200 transition-colors"
+                  >
+                    <Icon className={`text-xl mb-1 ${color}`} />
+                    <p className="text-xs text-gray-400 uppercase tracking-widest">{label}</p>
+                    <p className="text-sm font-semibold text-gray-800 mt-0.5">{value || '—'}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Divider */}
+              <hr className="border-gray-100" />
+
+              {/* Description */}
+              <div>
+                <h2 className="text-xs uppercase tracking-[0.2em] text-gray-400 font-semibold mb-3">
+                  About {petName}
+                </h2>
+                <p className="text-gray-600 leading-relaxed text-sm">
+                  {description || 'No description provided yet. Contact us for more details about this adorable pet.'}
+                </p>
+              </div>
+
+              {/* Divider */}
+              <hr className="border-gray-100" />
+
+              {/* Contact / Owner */}
+              {ownerEmail && (
+                <div className="flex items-center gap-3 bg-gray-50 rounded-2xl px-4 py-3 border border-gray-100">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-cyan-400 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                    {ownerEmail[0].toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-400 uppercase tracking-widest">Listed by</p>
+                    <p className="text-sm font-semibold text-gray-700">{ownerEmail}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 mt-auto">
+                <AdoptForm petName={petName} />
+
+                <Link
+                  href="/all-pets"
+                  className="flex-1 flex items-center justify-center gap-2 text-sm font-semibold border border-gray-200 text-gray-600 hover:border-gray-400 hover:text-gray-900 px-6 py-3.5 rounded-2xl transition-all duration-200"
+                >
+                  <FaArrowLeft className="text-xs" /> Back to All Pets
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      </section>
+
+      {/* Related / More info section */}
+      <section className="max-w-6xl mx-auto px-6 pb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {[
+            {
+              icon: FaHome,
+              iconColor: 'text-cyan-500',
+              iconBg: 'bg-cyan-50',
+              title: 'Home Visit',
+              text: 'We may arrange a home visit to ensure a perfect match for both you and the pet.',
+            },
+            {
+              icon: FaShieldAlt,
+              iconColor: 'text-emerald-500',
+              iconBg: 'bg-emerald-50',
+              title: 'Health Guarantee',
+              text: 'All pets are vet-checked before adoption. Records are provided on pickup.',
+            },
+            {
+              icon: FaPhoneAlt,
+              iconColor: 'text-violet-500',
+              iconBg: 'bg-violet-50',
+              title: 'Post-Adoption Support',
+              text: 'Our team is available for guidance and support after you bring your pet home.',
+            },
+          ].map(({ icon: Icon, iconColor, iconBg, title, text }) => (
+            <div
+              key={title}
+              className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-cyan-100 transition-all duration-200"
+            >
+              <div className={`w-11 h-11 rounded-xl ${iconBg} flex items-center justify-center mb-4`}>
+                <Icon className={`text-lg ${iconColor}`} />
+              </div>
+              <h3 className="font-bold text-gray-800 mb-2">{title}</h3>
+              <p className="text-sm text-gray-500 leading-relaxed">{text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
 };
 
 export default PetDetailsPage;
