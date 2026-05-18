@@ -19,9 +19,24 @@ const Navbar = () => {
 
         
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex-shrink-0">
-         <h1>PetNest</h1>
-        </div>
+       <div className="flex-shrink-0">
+  <h1
+    className="text-3xl md:text-4xl font-extrabold tracking-tight text-white flex items-center gap-2"
+    style={{
+      fontFamily: "Georgia, 'Times New Roman', serif",
+    }}
+  >
+    <span className="text-green-400 text-4xl">🐾</span>
+
+    <span className="bg-gradient-to-r from-green-400 via-emerald-300 to-cyan-300 bg-clip-text text-transparent">
+      PetNest
+    </span>
+  </h1>
+
+  <p className="text-[11px] tracking-[0.25em] uppercase text-gray-400 mt-1 ml-1">
+    Care • Love • Adoption
+  </p>
+</div>
 
         {/* Left nav links */}
         <ul className="hidden md:flex items-center gap-8">
