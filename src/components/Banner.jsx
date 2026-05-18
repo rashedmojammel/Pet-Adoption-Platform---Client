@@ -70,7 +70,7 @@ const Banner = () => {
 
           <div className="flex flex-wrap gap-4 justify-center">
             <Link
-              href="/pets"
+              href="/all-pets"
               className="bg-green-500 hover:bg-green-400 text-white font-semibold text-sm tracking-widest uppercase px-8 py-4 transition-all duration-200 hover:-translate-y-0.5"
             >
               Explore Pets
