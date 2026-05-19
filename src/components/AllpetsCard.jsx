@@ -23,11 +23,6 @@ const AllpetsCard = ({ pet }) => {
     imageUrl,
   } = pet;
 
-  // Example logged in user data
-  const currentUser = {
-    name: "Rashed Mojammel",
-    email: "rashed@gmail.com",
-  };
 
   const [pickupDate, setPickupDate] = useState("");
   const [message, setMessage] = useState("");
