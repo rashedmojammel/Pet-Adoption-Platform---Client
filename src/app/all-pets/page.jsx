@@ -1,10 +1,19 @@
 import AllpetsCard from "@/components/AllpetsCard";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import React from "react";
 import { FaSadCry } from "react-icons/fa";
 
 const AllPetPage = async () => {
-  const res = await fetch("http://localhost:5000/pets", {
+  const {token} = await auth.api.getToken({
+      headers: await headers()
+    });
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/pets`, {
     cache: "no-store",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    } 
   });
 
   const data = await res.json();

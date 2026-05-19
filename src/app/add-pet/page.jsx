@@ -35,7 +35,7 @@ const AddPet = () => {
     const formData = new FormData(e.currentTarget);
     const petdata = Object.fromEntries(formData.entries());
     console.log(petdata);
-    const res = await fetch("http://localhost:5000/pets", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/pets`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(petdata),

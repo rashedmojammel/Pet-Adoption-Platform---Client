@@ -20,7 +20,7 @@ const PetDetailsPage = async ({ params }) => {
   });
   console.log("Token in PetDetailsPage:", token);
 
-  const res = await fetch(`http://localhost:5000/pets/${id}`,{
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/pets/${id}`,{
     headers : {
       Authorization: `Bearer ${token}`
     }

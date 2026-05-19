@@ -12,7 +12,7 @@ const page = async () => {
     const user = session?.user || null;
     console.log(session);
 
-    const res = await fetch(`http://localhost:5000/adoption-requests/${user?.id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/adoption-requests/${user?.id}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
     });

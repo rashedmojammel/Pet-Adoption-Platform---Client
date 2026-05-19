@@ -22,10 +22,18 @@ export function AdoptForm({ petName }) {
       pickupDate: pickupDate ? new Date(pickupDate).toISOString() : null,
       message: message,
     };
+
+    const {data:tokenData}= await authClient.Token()
+    console.log("Token in AdoptForm:", tokenData?.token);
+
     console.log(adoptionData);
-    const res = await fetch("http://localhost:5000/adoption-requests", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/adoption-requests`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: 
+      { 
+        "Content-Type": "application/json", 
+        authorization: `Bearer ${tokenData?.token}`
+       },
       body: JSON.stringify(adoptionData),
     });
 

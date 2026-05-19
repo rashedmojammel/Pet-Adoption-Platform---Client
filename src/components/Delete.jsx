@@ -10,7 +10,7 @@ export function DeletePet({ pet }) {
   const router = useRouter();
 
   const handleDelete = async () => {
-    const res = await fetch(`http://localhost:5000/pets/${_id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/pets/${_id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
