@@ -39,12 +39,12 @@ const page = async () => {
       >
         {/* Pet Image */}
         <div className="relative h-60 w-full">
-          <Image
+          {/* <Image
             src={req.imageUrl}
             alt={req.petName}
             fill
             className="object-cover"
-          />
+          /> */}
         </div>
 
         {/* Content */}

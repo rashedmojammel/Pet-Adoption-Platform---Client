@@ -9,11 +9,22 @@ import { AdoptForm } from '@/components/AdoptForm';
 import { Button } from '@heroui/react';
 import { Editpet } from '@/components/EditModal';
 import { DeletePet } from '@/components/Delete';
+import { authClient } from '@/lib/auth-client';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 
 const PetDetailsPage = async ({ params }) => {
   const { id } = await params;
+  const {token} = await auth.api.getToken({
+    headers: await headers()
+  });
+  console.log("Token in PetDetailsPage:", token);
 
-  const res = await fetch(`http://localhost:5000/pets/${id}`);
+  const res = await fetch(`http://localhost:5000/pets/${id}`,{
+    headers : {
+      Authorization: `Bearer ${token}`
+    }
+  });
   const pet = await res.json();
 
   const {
