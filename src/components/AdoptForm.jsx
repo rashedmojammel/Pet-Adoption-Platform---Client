@@ -4,6 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import { Envelope } from "@gravity-ui/icons";
 import { Button, DateField, Input, Label, Modal, Surface, TextField } from "@heroui/react";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export function AdoptForm({ petName }) {
   const [pickupDate, setPickupDate] = useState(null);
@@ -14,6 +15,7 @@ export function AdoptForm({ petName }) {
 
   const handleAdopt = async () => {
     const adoptionData = {
+      userId: user?.id || null,
       petName: petName,
       userName: user?.name || "Anonymous",
       userEmail: user?.email || "No email",
@@ -29,7 +31,9 @@ export function AdoptForm({ petName }) {
 
     const data = await res.json();
     console.log(data);
-    
+
+    toast.success("Adoption request submitted successfully!");
+
     // TODO: send adoptionData to your API
     // await fetch("http://localhost:5000/adoptions", {
     //   method: "POST",
