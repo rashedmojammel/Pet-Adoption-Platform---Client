@@ -21,7 +21,10 @@ const PetDetailsPage = async ({ params }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/pets/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`
-    }
+
+    },
+    cache: 'no-store',
+   
   });
   const pet = await res.json();
 
