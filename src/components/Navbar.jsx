@@ -17,9 +17,8 @@ const Navbar = () => {
   const navLinks = [
   { href: "/", label: "Home" },
   { href: "/all-pets", label: "All Pets" },
-  { href: "/my-listings", label: "My Listings" },  // ← add this
   { href: "/my-request", label: "My Request" },
-  { href: "/add-pet", label: "Add Pet" },
+  {href : "/add-pet", label: "Add Pet" },
 ];
 
   const handleSignOut = async () => {
@@ -118,7 +117,7 @@ const Navbar = () => {
 
                   {/* Dashboard */}
                   <Link
-                    href="/add-pet"
+                    href="/all-pets"
                     onClick={() => setDropdownOpen(false)}
                     className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150"
                   >
@@ -126,6 +125,15 @@ const Navbar = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h10M4 18h6" />
                     </svg>
                     Dashboard
+                  </Link>
+                  <Link href="/my-listings"
+                    onClick={() => setDropdownOpen(false)}
+                    className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150"
+                  >
+                    <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />  
+                    </svg>
+                    My Listings 
                   </Link>
 
                   {/* Logout */}
