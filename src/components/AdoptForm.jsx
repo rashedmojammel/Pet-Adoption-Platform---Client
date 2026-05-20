@@ -6,16 +6,23 @@ import { Button, DateField, Input, Label, Modal, Surface, TextField } from "@her
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export function AdoptForm({ petName }) {
+export function AdoptForm({ petName, petId, ownerEmail }) {
   const [pickupDate, setPickupDate] = useState(null);
   const [message, setMessage] = useState("");
 
-  const { data: session, isPending } = authClient.useSession();
+  const { data: session } = authClient.useSession();
   const user = session?.user || null;
 
   const handleAdopt = async () => {
+    // Block owner from adopting their own pet
+    if (user?.email === ownerEmail) {
+      toast.error("You cannot adopt your own pet!");
+      return;
+    }
+
     const adoptionData = {
       userId: user?.id || null,
+      petId: petId,
       petName: petName,
       userName: user?.name || "Anonymous",
       userEmail: user?.email || "No email",
@@ -23,32 +30,39 @@ export function AdoptForm({ petName }) {
       message: message,
     };
 
-    const {data:tokenData}= await authClient.Token()
-    console.log("Token in AdoptForm:", tokenData?.token);
+    const { data: tokenData } = await authClient.Token();
 
-    console.log(adoptionData);
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/adoption-requests`, {
       method: "POST",
-      headers: 
-      { 
-        "Content-Type": "application/json", 
-        authorization: `Bearer ${tokenData?.token}`
-       },
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`,
+      },
       body: JSON.stringify(adoptionData),
     });
 
     const data = await res.json();
-    console.log(data);
+
+    if (res.status === 403) {
+      toast.error(data.error);
+      return;
+    }
+    if (res.status === 400) {
+      toast.error(data.error);
+      return;
+    }
 
     toast.success("Adoption request submitted successfully!");
-
-    // TODO: send adoptionData to your API
-    // await fetch("http://localhost:5000/adoptions", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(adoptionData),
-    // });
   };
+
+  // Hide adopt button entirely if user is the owner
+  if (user?.email === ownerEmail) {
+    return (
+      <div className="px-4 py-2 bg-gray-100 text-gray-500 text-sm rounded-2xl">
+        You listed this pet
+      </div>
+    );
+  }
 
   return (
     <Modal>
@@ -71,7 +85,6 @@ export function AdoptForm({ petName }) {
               <Surface variant="default">
                 <div className="flex flex-col gap-4">
 
-                  {/* Pet Name — Read Only */}
                   <TextField className="w-full" name="petName" type="text" isReadOnly>
                     <Label>Pet Name</Label>
                     <Input
@@ -80,7 +93,6 @@ export function AdoptForm({ petName }) {
                     />
                   </TextField>
 
-                  {/* User Name — Read Only */}
                   <TextField className="w-full" name="userName" type="text" isReadOnly>
                     <Label>Your Name</Label>
                     <Input
@@ -89,7 +101,6 @@ export function AdoptForm({ petName }) {
                     />
                   </TextField>
 
-                  {/* User Email — Read Only */}
                   <TextField className="w-full" name="userEmail" type="email" isReadOnly>
                     <Label>Your Email</Label>
                     <Input
@@ -98,7 +109,6 @@ export function AdoptForm({ petName }) {
                     />
                   </TextField>
 
-                  {/* Pickup Date */}
                   <DateField
                     className="w-full"
                     name="pickupDate"
@@ -112,7 +122,6 @@ export function AdoptForm({ petName }) {
                     </DateField.Group>
                   </DateField>
 
-                  {/* Message */}
                   <TextField className="w-full" name="message">
                     <Label>Message</Label>
                     <Input

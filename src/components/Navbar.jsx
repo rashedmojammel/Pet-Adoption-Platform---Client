@@ -15,11 +15,12 @@ const Navbar = () => {
   const user = session?.user || null;
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/all-pets", label: "All Pets" },
-    { href: "/my-request", label: "My Request"},
-    { href: "/add-pet", label: "Add Pet" },
-  ];
+  { href: "/", label: "Home" },
+  { href: "/all-pets", label: "All Pets" },
+  { href: "/my-listings", label: "My Listings" },  // ← add this
+  { href: "/my-request", label: "My Request" },
+  { href: "/add-pet", label: "Add Pet" },
+];
 
   const handleSignOut = async () => {
     await authClient.signOut();

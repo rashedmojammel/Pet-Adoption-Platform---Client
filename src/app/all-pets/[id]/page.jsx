@@ -9,19 +9,17 @@ import { AdoptForm } from '@/components/AdoptForm';
 import { Button } from '@heroui/react';
 import { Editpet } from '@/components/EditModal';
 import { DeletePet } from '@/components/Delete';
-import { authClient } from '@/lib/auth-client';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 
 const PetDetailsPage = async ({ params }) => {
   const { id } = await params;
-  const {token} = await auth.api.getToken({
+  const { token } = await auth.api.getToken({
     headers: await headers()
   });
-  console.log("Token in PetDetailsPage:", token);
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/pets/${id}`,{
-    headers : {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/pets/${id}`, {
+    headers: {
       Authorization: `Bearer ${token}`
     }
   });
@@ -60,15 +58,15 @@ const PetDetailsPage = async ({ params }) => {
             </Button>
           </div>
           <div className='flex gap-3'>
-            <Editpet pet={pet} />
-            <DeletePet pet={pet} />
+            <Editpet pet={{ ...pet, _id: pet._id.toString() }} />
+            <DeletePet pet={{ ...pet, _id: pet._id.toString() }} />
           </div>
         </div>
 
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2">
 
-            {/* ── Left: Image ── */}
+            {/* Left: Image */}
             <div className="relative">
               <div className="sticky top-24">
                 <div className="aspect-[4/3] lg:aspect-auto lg:h-[560px] overflow-hidden">
@@ -83,7 +81,7 @@ const PetDetailsPage = async ({ params }) => {
                 {adoptionFee && (
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-2xl px-4 py-2 shadow-lg">
                     <p className="text-xs text-gray-400 uppercase tracking-widest">Adoption Fee</p>
-                    <p className="text-xl font-bold text-cyan-600">${adoptionFee}</p>
+                    <p className="text-xl font-bold text-cyan-600">৳{adoptionFee}</p>
                   </div>
                 )}
 
@@ -96,7 +94,7 @@ const PetDetailsPage = async ({ params }) => {
               </div>
             </div>
 
-            {/* ── Right: Info ── */}
+            {/* Right: Info */}
             <div className="p-8 lg:p-10 flex flex-col gap-7">
 
               <div className="flex flex-wrap gap-2">
@@ -125,7 +123,7 @@ const PetDetailsPage = async ({ params }) => {
                   About {petName}
                 </h2>
                 <p className="text-gray-600 leading-relaxed text-sm">
-                  {description || 'No description provided yet. Contact us for more details about this adorable pet.'}
+                  {description || 'No description provided yet.'}
                 </p>
               </div>
 
@@ -143,9 +141,18 @@ const PetDetailsPage = async ({ params }) => {
                 </div>
               )}
 
-              {/* AdoptForm handles session internally via authClient.useSession() */}
+              {/* Adopted badge — shown when pet is already adopted */}
+              {pet.status === 'adopted' && (
+                <div className="bg-purple-50 border border-purple-200 rounded-2xl px-4 py-3 text-center">
+                  <p className="text-purple-700 font-semibold text-sm">🎉 This pet has already been adopted</p>
+                </div>
+              )}
+
               <div className="flex flex-col sm:flex-row gap-3 mt-auto">
-                <AdoptForm petName={petName} />
+                {/* Hide adopt button if already adopted */}
+                {pet.status !== 'adopted' && (
+                  <AdoptForm petName={petName} petId={id} ownerEmail={ownerEmail} />
+                )}
               </div>
 
             </div>

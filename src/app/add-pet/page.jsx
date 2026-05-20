@@ -1,6 +1,8 @@
 'use client';
 import { FieldError, Input, Label, TextField, Select, ListBox, Button, TextArea } from '@heroui/react';
-import React from 'react';
+import React, { useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 import {
   FaPaw,
   FaDog,
@@ -13,6 +15,7 @@ import {
   FaFeatherAlt,
   FaAlignLeft,
 } from 'react-icons/fa';
+import { authClient } from '@/lib/auth-client';
 
 const SectionHeading = ({ icon, label }) => (
   <div className="flex items-center gap-2 mb-5">
@@ -30,40 +33,52 @@ const FieldLabel = ({ icon, children }) => (
 );
 
 const AddPet = () => {
+  const router = useRouter();
+  const formRef = useRef(null);
+  const { data: session } = authClient.useSession();
+  const user = session?.user || null;
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const petdata = Object.fromEntries(formData.entries());
-    console.log(petdata);
+
+    const { data: tokenData } = await authClient.Token();
+
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/pets`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(petdata),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenData?.token}`,
+      },
+      body: JSON.stringify({ ...petdata, ownerEmail: user?.email }),
     });
-    const data = await res.json();
-    console.log(data);
+
+    if (res.ok) {
+      toast.success("Pet added successfully!");
+      formRef.current?.reset();         // reset all fields
+      router.push('/my-listings');      // redirect to my listings
+    } else {
+      toast.error("Failed to add pet. Please try again.");
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-3xl mx-auto">
 
-        {/* Header */}
         <div className="text-center mb-10">
-        
           <h1 className="text-3xl font-bold text-gray-800"
             style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}>
             Add a New Pet
           </h1>
         </div>
 
-        {/* Form Card */}
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
           <div className="h-1.5 bg-gradient-to-r from-green-400 via-cyan-400 to-teal-400" />
 
-          <form onSubmit={onSubmit} className="p-8 md:p-10 space-y-8">
+          <form ref={formRef} onSubmit={onSubmit} className="p-8 md:p-10 space-y-8">
 
-            {/* Section: Basic Info */}
             <div>
               <SectionHeading icon={<FaDog />} label="Basic Information" />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -127,7 +142,6 @@ const AddPet = () => {
 
             <div className="border-t border-gray-100" />
 
-            {/* Section: Health & Location */}
             <div>
               <SectionHeading icon={<FaHeartbeat />} label="Health & Location" />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -161,7 +175,6 @@ const AddPet = () => {
 
             <div className="border-t border-gray-100" />
 
-            {/* Section: Media & Description */}
             <div>
               <SectionHeading icon={<FaImage />} label="Media & Description" />
               <div className="space-y-5">
@@ -184,7 +197,6 @@ const AddPet = () => {
               </div>
             </div>
 
-            {/* Submit */}
             <Button
               type="submit"
               className="w-full bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white font-semibold py-3 rounded-2xl transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 flex items-center justify-center gap-2"
