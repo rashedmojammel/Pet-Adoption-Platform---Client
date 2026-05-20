@@ -38,7 +38,7 @@ const AllPetPage = () => {
     );
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-orange-50 to-white py-12 px-4 md:px-10">
+    <section className="min-h-screen  bg-gray-50py-12 px-4 md:px-10">
       <div className="max-w-7xl mx-auto mb-12 text-center">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800">
           Find Your Perfect Pet 🐾
@@ -49,7 +49,6 @@ const AllPetPage = () => {
         </p>
       </div>
 
-      {/* Search + Filter — new addition */}
       <div className="max-w-7xl mx-auto mb-8 flex flex-col md:flex-row gap-4 items-center">
         <div className="relative flex-1 w-full">
           <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -78,7 +77,6 @@ const AllPetPage = () => {
         </div>
       </div>
 
-      {/* Stats — your existing block, just updated count */}
       <div className="max-w-7xl mx-auto mb-10">
         <div className="bg-white rounded-3xl shadow-md border border-orange-100 p-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
