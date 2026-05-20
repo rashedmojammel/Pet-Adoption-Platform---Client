@@ -57,6 +57,8 @@ const PetDetailsPage = async ({ params }) => {
               </Link>
             </Button>
           </div>
+
+              
           <div className='flex gap-3'>
             <Editpet pet={{ ...pet, _id: pet._id.toString() }} />
             <DeletePet pet={{ ...pet, _id: pet._id.toString() }} />
@@ -149,7 +151,6 @@ const PetDetailsPage = async ({ params }) => {
               )}
 
               <div className="flex flex-col sm:flex-row gap-3 mt-auto">
-                {/* Hide adopt button if already adopted */}
                 {pet.status !== 'adopted' && (
                   <AdoptForm petName={petName} petId={id} ownerEmail={ownerEmail} />
                 )}
