@@ -154,11 +154,11 @@ const SignupPage = () => {
 
             <Input placeholder="Enter your password" />
 
-            <Description>
+            {/* <Description>
               • At least 6 characters <br />
               • One uppercase letter <br />
               • One lowercase letter
-            </Description>
+            </Description> */}
 
             <FieldError />
           </TextField>
