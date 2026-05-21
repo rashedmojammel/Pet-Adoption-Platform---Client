@@ -1,23 +1,105 @@
-🐾 PawsHome — Pet Adoption Platform
+# 🐾 PetNest — Pet Adoption Platform
 
-Connect loving families with pets in need of a forever home.
+## Purpose
 
-📌 Purpose
-PawsHome is a full-stack web application that bridges the gap between pet owners who can no longer care for their animals and families looking to adopt. Users can browse available pets, filter by species or breed, submit adoption requests, and track their request status — all in one place.
+PetNest is a full-stack pet adoption platform that connects pet owners with potential adopters. Users can browse available pets, submit adoption requests, and manage their listings — all in one place.
 
-🌐 Live URL
-🔗 https://pawshome.vercel.app
+---
 
-✨ Features
+## 🌐 Live URL
 
-Browse & Search Pets — Explore all available pets with real-time search by name or breed and filter by species (Dog, Cat, Bird, Rabbit, Fish, and more)
-Adoption Requests — Submit adoption requests directly from a pet's detail page, including a preferred pickup date and personal message
-Request Tracking Dashboard — Authenticated users can view all their adoption requests, see live status updates (Pending / Approved / Cancelled), and cancel pending requests
-Authentication — Secure sign-up and sign-in powered by Better Auth, with session-based access control protecting user-specific routes
-Pet Detail Pages — Each pet has a dedicated page showing full details including breed, age, location, description, owner contact, and a photo gallery
-Admin Approval Flow — Shelter staff or pet owners can approve or reject incoming adoption requests from a management dashboard
-Responsive Design — Fully optimized for mobile, tablet, and desktop with smooth hover transitions and accessible UI components
+[https://pet-adoption-platform-client.vercel.app](https://pet-adoption-platform-client.vercel.app)
 
-📦 NPM Packages Used
-Frontend
-PackagePurposenextReact framework with App Router and server componentsreactUI component librarytailwindcssUtility-first CSS styling@heroui/reactPre-built accessible UI components (Button, Modal, etc.)react-iconsIcon library (FaDog, FaMapMarkerAlt, FaSearch, etc.)react-hook-formForm state management and validation
+---
+
+## ✨ Features
+
+- **JWT Authentication** — Secure login, signup, and Google OAuth via `better-auth` with HTTPOnly cookie-based JWT tokens
+- **Pet Listings** — Add, edit, and delete pet listings with full details including species, breed, age, health status, vaccination, and adoption fee
+- **Adoption Request System** — Users can submit adoption requests; pet owners can approve or reject from a requests modal — approving one auto-rejects all others and marks the pet as adopted
+- **Adoption Control** — Pet owners cannot adopt their own pets; adopted pets are locked from further requests
+- **My Listings Dashboard** — Pet owners see all their listed pets with live stats (Total / Available / Adopted) and manage requests per pet
+- **My Requests Page** — Adopters can track request status (Pending / Approved / Rejected) and cancel pending requests
+- **Search & Filter** — Search pets by name with debounce and filter by species using MongoDB `$regex` and `$in` operators
+- **Wishlist** — Save favourite pets to a local wishlist with one click; persisted in `localStorage`
+- **Framer Motion Animations** — Smooth fade-in and slide-up animations on all home page sections and pet cards
+- **Fully Responsive** — Mobile-first design across all pages using Tailwind CSS
+
+---
+
+## 📦 NPM Packages Used
+
+### Frontend (Next.js)
+
+| Package | Purpose |
+|---|---|
+| `next` | React framework with server components and routing |
+| `react` / `react-dom` | UI library |
+| `better-auth` | Authentication (email/password + Google OAuth + JWT plugin) |
+| `@heroui/react` | UI component library (Modal, Button, Select, TextField, etc.) |
+| `framer-motion` | Page and card animations |
+| `react-toastify` | Toast notifications |
+| `react-icons` | Icon library (FaPaw, FaDog, etc.) |
+| `@gravity-ui/icons` | Additional icon set |
+| `tailwindcss` | Utility-first CSS framework |
+
+### Backend (Express)
+
+| Package | Purpose |
+|---|---|
+| `express` | Node.js web framework |
+| `mongodb` | MongoDB driver for database operations |
+| `dotenv` | Environment variable management |
+| `cors` | Cross-origin resource sharing |
+| `jose-cjs` | JWT verification using JWKS from better-auth |
+
+---
+
+## 🚀 Getting Started
+
+### Clone the repository
+
+```bash
+git clone https://github.com/your-username/pet-adoption-platform.git
+```
+
+### Frontend setup
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+### Backend setup
+
+```bash
+cd server
+npm install
+node index.js
+```
+
+### Environment Variables
+
+**Frontend `.env.local`**
+
+```env
+NEXT_PUBLIC_SERVER_URL=http://localhost:5000
+BETTER_AUTH_URL=http://localhost:3000
+BETTER_AUTH_SECRET=your_secret
+MONGODB_URI=your_mongodb_uri
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
+
+**Backend `.env`**
+
+```env
+MONGODB_URI=your_mongodb_uri
+PORT=5000
+CLIENT_URL=http://localhost:3000
+```
+
+---
+
+## 🗂️ Project Structure
