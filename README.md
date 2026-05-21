@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+🐾 PawsHome — Pet Adoption Platform
 
-## Getting Started
+Connect loving families with pets in need of a forever home.
 
-First, run the development server:
+📌 Purpose
+PawsHome is a full-stack web application that bridges the gap between pet owners who can no longer care for their animals and families looking to adopt. Users can browse available pets, filter by species or breed, submit adoption requests, and track their request status — all in one place.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🌐 Live URL
+🔗 https://pawshome.vercel.app
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+✨ Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Browse & Search Pets — Explore all available pets with real-time search by name or breed and filter by species (Dog, Cat, Bird, Rabbit, Fish, and more)
+Adoption Requests — Submit adoption requests directly from a pet's detail page, including a preferred pickup date and personal message
+Request Tracking Dashboard — Authenticated users can view all their adoption requests, see live status updates (Pending / Approved / Cancelled), and cancel pending requests
+Authentication — Secure sign-up and sign-in powered by Better Auth, with session-based access control protecting user-specific routes
+Pet Detail Pages — Each pet has a dedicated page showing full details including breed, age, location, description, owner contact, and a photo gallery
+Admin Approval Flow — Shelter staff or pet owners can approve or reject incoming adoption requests from a management dashboard
+Responsive Design — Fully optimized for mobile, tablet, and desktop with smooth hover transitions and accessible UI components
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+📦 NPM Packages Used
+Frontend
+PackagePurposenextReact framework with App Router and server componentsreactUI component librarytailwindcssUtility-first CSS styling@heroui/reactPre-built accessible UI components (Button, Modal, etc.)react-iconsIcon library (FaDog, FaMapMarkerAlt, FaSearch, etc.)react-hook-formForm state management and validation
