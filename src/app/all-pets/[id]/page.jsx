@@ -13,12 +13,12 @@ import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 
 const PetDetailsPage = async ({ params }) => {
-  const { id } = await params;
+  const { _id } = await params;
   const { token } = await auth.api.getToken({
     headers: await headers()
   });
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/pets/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/pets/${_id}`, {
     headers: {
       Authorization: `Bearer ${token}`
 
@@ -27,6 +27,7 @@ const PetDetailsPage = async ({ params }) => {
    
   });
   const pet = await res.json();
+  console.log('pet:', pet);
 
   const {
     petName, species, age, breed, gender, location,
@@ -65,7 +66,7 @@ const PetDetailsPage = async ({ params }) => {
           <div className='flex gap-3'>
            <Editpet pet={pet} />
            {/* <DeletePet pet={pet} /> */}
-           <DeletePet pet={{ ...pet, _id: pet._id?.toString() }} />
+           <DeletePet pet={{ ...pet, _id: pet?._id?.toString() }} />
           </div>
         </div>
 
