@@ -85,7 +85,7 @@ export function AdoptForm({ petName, petId, ownerEmail }) {
               <Surface variant="default">
                 <div className="flex flex-col gap-4">
 
-                  <TextField className="w-full" name="petName" type="text" isReadOnly>
+                  <TextField className="w-full" name="petName" type="text" readonly>
                     <Label>Pet Name</Label>
                     <Input
                       value={petName ?? ""}
@@ -93,7 +93,7 @@ export function AdoptForm({ petName, petId, ownerEmail }) {
                     />
                   </TextField>
 
-                  <TextField className="w-full" name="userName" type="text" isReadOnly>
+                  <TextField className="w-full" name="userName" type="text" readonly>
                     <Label>Your Name</Label>
                     <Input
                       value={user?.name ?? ""}
@@ -101,7 +101,7 @@ export function AdoptForm({ petName, petId, ownerEmail }) {
                     />
                   </TextField>
 
-                  <TextField className="w-full" name="userEmail" type="email" isReadOnly>
+                  <TextField className="w-full" name="userEmail" type="email" readonly>
                     <Label>Your Email</Label>
                     <Input
                       value={user?.email ?? ""}
