@@ -64,7 +64,8 @@ const PetDetailsPage = async ({ params }) => {
               
           <div className='flex gap-3'>
            <Editpet pet={pet} />
-<DeletePet pet={pet} />
+           {/* <DeletePet pet={pet} /> */}
+           <DeletePet pet={{ ...pet, _id: pet._id?.toString() }} />
           </div>
         </div>
 
