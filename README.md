@@ -53,53 +53,7 @@ PetNest is a full-stack pet adoption platform that connects pet owners with pote
 | `cors` | Cross-origin resource sharing |
 | `jose-cjs` | JWT verification using JWKS from better-auth |
 
----
 
-## 🚀 Getting Started
 
-### Clone the repository
-
-```bash
-git clone https://github.com/your-username/pet-adoption-platform.git
-```
-
-### Frontend setup
-
-```bash
-cd client
-npm install
-npm run dev
-```
-
-### Backend setup
-
-```bash
-cd server
-npm install
-node index.js
-```
-
-### Environment Variables
-
-**Frontend `.env.local`**
-
-```env
-NEXT_PUBLIC_SERVER_URL=http://localhost:5000
-BETTER_AUTH_URL=http://localhost:3000
-BETTER_AUTH_SECRET=your_secret
-MONGODB_URI=your_mongodb_uri
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-```
-
-**Backend `.env`**
-
-```env
-MONGODB_URI=your_mongodb_uri
-PORT=5000
-CLIENT_URL=http://localhost:3000
-```
-
----
 
 ## 🗂️ Project Structure
