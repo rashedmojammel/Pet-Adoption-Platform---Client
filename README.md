@@ -52,8 +52,3 @@ PetNest is a full-stack pet adoption platform that connects pet owners with pote
 | `dotenv` | Environment variable management |
 | `cors` | Cross-origin resource sharing |
 | `jose-cjs` | JWT verification using JWKS from better-auth |
-
-
-
-
-## 🗂️ Project Structure
