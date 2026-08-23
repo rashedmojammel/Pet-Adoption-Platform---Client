@@ -2,7 +2,7 @@
 
 ## Purpose
 
-PetNest is a full-stack pet adoption platform that connects pet owners with potential adopters. Users can browse available pets, submit adoption requests, and manage their listings — all in one place.
+PetNest is a full-stack pet adoption platform that connects pet owners with potential adopters. Users can browse available pets, submit adoption requests, and manage their listings — all in one place !
 
 ---
 
