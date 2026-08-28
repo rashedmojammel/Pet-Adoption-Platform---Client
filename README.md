@@ -1,4 +1,4 @@
-# 🐾 PetNest — Pet Adoption Platform !
+# 🐾 PetNest — Pet Adoption Platform 
 
 ## Purpose
 
